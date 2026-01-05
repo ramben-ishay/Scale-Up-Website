@@ -1,0 +1,524 @@
+:root {
+    --bg-color: #FDF3E6;
+    --accent-color: #BE3330;
+    --text-color: #061936;
+    --paper-texture: rgba(0, 0, 0, 0.03);
+    --nav-height: 80px;
+    --container-padding: 2rem;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Lora', serif; /* NYT Imperial alternative */
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--accent-color);
+    color: white;
+}
+
+.scroll-progress {
+    position: absolute;
+    bottom: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 2px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.1s linear;
+    border-radius: 2px;
+}
+
+h1, h2, h3, .about-title, .section-title {
+    font-family: 'Frank Ruhl Libre', serif; /* NYT Cheltenham alternative */
+    font-weight: 900;
+}
+
+.secondary-sans, .nav-link, .btn-subscribe, .role, .episode-number, .calcalist-ep, .calcalist-cta {
+    font-family: 'Libre Franklin', sans-serif; /* NYT Franklin alternative */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* Paper Aesthetic */
+.paper-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(190, 51, 48, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(6, 25, 54, 0.05) 0%, transparent 40%);
+    filter: blur(80px);
+}
+
+.paper-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all var(--transition-speed);
+}
+
+.nav-container {
+    background: rgba(253, 243, 230, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(6, 25, 54, 0.1);
+    border-radius: 100px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.logo img {
+    height: 30px;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity var(--transition-speed);
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+.btn-subscribe {
+    background-color: var(--text-color);
+    color: var(--bg-color) !important;
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    opacity: 1 !important;
+}
+
+/* Animation Section */
+.animation-section {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.animation-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-mobile {
+    display: none;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 800;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.platform-link {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: all var(--transition-speed);
+}
+
+.platform-link:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    color: var(--accent-color);
+}
+
+/* About Section */
+.about-section {
+    padding: 6rem 0;
+    border-top: 1px solid rgba(6, 25, 54, 0.1);
+}
+
+.about-content {
+    max-width: 800px;
+}
+
+.about-title {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.about-tagline {
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.main-quote {
+    font-size: 2rem;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 2rem;
+    margin: 3rem 0;
+    line-height: 1.2;
+}
+
+/* Host Section */
+.us-section {
+    padding: 4rem 0;
+}
+
+.host-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.host-card h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.role {
+    display: block;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Episodes Section */
+.episodes-section {
+    padding: 8rem 0;
+}
+
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+}
+
+.episode-card {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(6, 25, 54, 0.1);
+    align-items: center;
+}
+
+.episode-image {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    filter: grayscale(1);
+    transition: filter 0.5s ease;
+}
+
+.episode-card:hover .episode-image {
+    filter: grayscale(0);
+}
+
+.episode-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.episode-number {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.episode-content h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.episode-links {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.episode-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: color var(--transition-speed), transform var(--transition-speed);
+    color: #999;
+}
+
+.episode-links a:hover {
+    color: var(--text-color);
+    transform: translateY(-2px);
+}
+
+.episode-links a svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.calcalist-icon {
+    height: 18px;
+    filter: grayscale(1);
+}
+
+.episode-links a:hover .calcalist-icon {
+    filter: grayscale(0);
+}
+
+/* Calcalist Section */
+.calcalist-section {
+    padding: 8rem 0;
+    background: rgba(6, 25, 54, 0.02);
+}
+
+.calcalist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+}
+
+.calcalist-badge img {
+    height: 40px;
+}
+
+.section-lede {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.calcalist-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.calcalist-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(6, 25, 54, 0.1);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background var(--transition-speed);
+}
+
+.calcalist-item:hover:not(.is-disabled) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background: rgba(190, 51, 48, 0.05);
+}
+
+.calcalist-ep {
+    color: var(--accent-color);
+}
+
+.calcalist-title {
+    font-weight: 600;
+}
+
+.calcalist-cta {
+    text-align: right;
+    opacity: 0.5;
+}
+
+.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Modals */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 25, 54, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-color);
+    width: 90%;
+    max-width: 600px;
+    z-index: 2001;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.modal-tile {
+    padding: 1.5rem;
+    border: 1px solid rgba(6, 25, 54, 0.1);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-speed);
+}
+
+.modal-tile:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.modal-tile .tile-icon {
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+/* Footer */
+footer {
+    padding: 4rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(6, 25, 54, 0.1);
+    opacity: 0.6;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .video-desktop {
+        display: none;
+    }
+    
+    .video-mobile {
+        display: block;
+    }
+    
+    .host-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .episode-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .episode-image {
+        margin: 0 auto;
+    }
+    
+    .episode-links {
+        justify-content: center;
+    }
+    
+    .calcalist-item {
+        grid-template-columns: 50px 1fr;
+    }
+    
+    .calcalist-cta {
+        display: none;
+    }
+    
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}
