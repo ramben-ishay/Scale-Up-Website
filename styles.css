@@ -303,10 +303,7 @@ h1, h2, h3, .about-title, .section-title {
 }
 
 .episode-links {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    display: none !important;
 }
 
 .episode-links a {
