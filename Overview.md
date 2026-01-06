@@ -43,7 +43,7 @@ Goal: Make background colors feel like printed newspaper or a glossy magazine pa
 
 **Social Sharing (OG Tags)**: When shared on LinkedIn, X, WhatsApp, etc., display:
 * Title: ScaleUp Nation Podcast
-* Description: 100 Scaleup CEOs. 3 hours. 0 Fluff. From Startup Nation to ScaleUp Nation.
+* Description: Scaleup CEOs. 3 hours. 0 Fluff.
 * Image: Podcast logo
 
 **Smooth Scroll**: All internal anchor links scroll smoothly instead of jumping.
@@ -54,11 +54,9 @@ Goal: Make background colors feel like printed newspaper or a glossy magazine pa
    Short Video / Animation of the podcast. One vertical for desktop and one vertical for Mobile. The animation should be positioned below the nav bar and above all other content on the homepage. Full screen height section.
 
 2. **Hero**:
-   * H1 (Secondary sans): *From Startup Nation to ScaleUp Nation*
    * CTAs: Apple Podcasts, Spotify, Instagram, YouTube, X, LinkedIn, Facebook, WhatsApp
 
-3. *100 Scaleup CEOs. 3 hours. 0 Fluff.*
-> **Startup Nation was Episode 1. This is Episode 2.**
+3. > **Scaleup CEOs. 3 hours. 0 Fluff.**
 On desktop keep this quote on a single line.
 For decades, the Israeli dream was the quick Exit. But something changed. A new generation of founders decided to go long. To build category-defining companies that last. We sit down with them for 3 hours. Unfiltered. No PR fluff. Just the raw, unscripted playbook of how to scale from Tel Aviv.
 
@@ -66,7 +64,7 @@ For decades, the Israeli dream was the quick Exit. But something changed. A new 
     **Erez Shachar** | *The Dean of Israeli ScaleUp*
 From CEO of a NASDAQ company to investing in them. Erez built Israel's first growth VC Fund, Qumra Capital, with one big dream: *What if Israel stopped being exit nation and actually became a scaleup nation?* Erez has seen *everything*. Two decades of boardrooms. Dozens of CEOs. Billions in value created. From early stage chaos to IPO bells on NASDAQ. He's here to make the discussion authentic. The kind of stuff that happens after the board meeting ends.
 **Ram Ben Ishay** | *The Young Challenger*
-28. Restless. From Spokesperson at the Israeli Consulate in NYC to VC in Silicon Valley. Then crossed to the builder side, leading product teams in LA and Tel Aviv. Teaches Product Management at Reichman University and chasing the same question from different angles: *How do you build something that actually lasts?*
+28. Restless. From Spokesperson at the Israeli Consulate in NYC to VC in Silicon Valley. Crossed to the builder side, leading product teams in LA and Tel Aviv. Teaches at Reichman University.All of it chasing the same question: *How do you build something that actually lasts?*
 
 5. **Episodes**
 **Layout**: Single row per episode. Images appear in greyscale and reveal full color on interaction (hover/click).

@@ -504,15 +504,26 @@ body::after {
 
 .us-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: start;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .us-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 .person-card {
   padding: 30px;
   background: linear-gradient(135deg, rgba(190, 51, 48, 0.15) 0%, rgba(253, 243, 230, 0.65) 50%, rgba(190, 51, 48, 0.12) 100%);
   border-radius: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 0;
 }
 
 .person-card.has-image {
@@ -555,6 +566,8 @@ body::after {
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .person-name {
@@ -582,7 +595,9 @@ body::after {
   line-height: 1.8;
   color: var(--color-navy);
   margin: 0;
+  margin-bottom: auto;
   text-align: left;
+  flex: 1;
 }
 
 .person-bio em {
