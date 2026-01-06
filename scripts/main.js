@@ -42,6 +42,8 @@ let lastScrollTime = 0;
 let scrollEventCount = 0;
 // #endregion
 
+// Throttle scroll handler for better performance
+let scrollTimeout = null;
 function updateScrollProgress() {
   // #region agent log
   const now = Date.now();
@@ -51,27 +53,38 @@ function updateScrollProgress() {
   const documentHeight = document.documentElement.scrollHeight;
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   const isMobile = window.innerWidth <= 767;
-  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:32',message:'Scroll event fired',data:{scrollTop,windowHeight,documentHeight,timeSinceLastScroll,scrollEventCount,isMobile,viewportHeight:window.visualViewport?.height||window.innerHeight},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:32',message:'Scroll event fired',data:{scrollTop,windowHeight,documentHeight,timeSinceLastScroll,scrollEventCount,isMobile,viewportHeight:window.visualViewport?.height||window.innerHeight},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'A'})}).catch(()=>{});
   lastScrollTime = now;
   // #endregion
   
-  const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
-  
-  // #region agent log
-  const beforeWidth = scrollProgress ? scrollProgress.style.width : 'none';
-  // #endregion
-  
-  if (scrollProgress) {
-    scrollProgress.style.width = `${Math.min(scrollPercentage, 100)}%`;
+  // Clear existing timeout
+  if (scrollTimeout) {
+    cancelAnimationFrame(scrollTimeout);
   }
   
-  // #region agent log
-  const afterWidth = scrollProgress ? scrollProgress.style.width : 'none';
-  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:41',message:'Scroll progress updated',data:{beforeWidth,afterWidth,scrollPercentage},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
+  // Use requestAnimationFrame for smooth updates
+  scrollTimeout = requestAnimationFrame(() => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+    
+    // #region agent log
+    const beforeWidth = scrollProgress ? scrollProgress.style.width : 'none';
+    // #endregion
+    
+    if (scrollProgress) {
+      scrollProgress.style.width = `${Math.min(scrollPercentage, 100)}%`;
+    }
+    
+    // #region agent log
+    const afterWidth = scrollProgress ? scrollProgress.style.width : 'none';
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:50',message:'Scroll progress updated',data:{beforeWidth,afterWidth,scrollPercentage},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
+  });
 }
 
-window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress);
 
 // Scroll Animations
@@ -120,37 +133,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Video Source Selection based on screen size
+let lastKnownWidth = window.innerWidth;
+
 function updateVideoSource() {
   const video = document.getElementById('heroVideo');
   if (!video) return;
   
+  const currentWidth = window.innerWidth;
+  // Only update if width actually changed (ignore height-only viewport changes)
+  if (currentWidth === lastKnownWidth) {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:123',message:'updateVideoSource skipped - width unchanged',data:{currentWidth,lastKnownWidth,viewportHeight:window.visualViewport?.height||window.innerHeight},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+    return;
+  }
+  
+  lastKnownWidth = currentWidth;
+  
   // #region agent log
-  const isMobile = window.innerWidth <= 767;
+  const isMobile = currentWidth <= 767;
   const viewportHeight = window.visualViewport?.height || window.innerHeight;
   const animationSection = document.querySelector('.animation-section');
   const animationSectionHeight = animationSection ? animationSection.offsetHeight : 0;
-  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:76',message:'updateVideoSource called',data:{isMobile,viewportHeight,windowInnerHeight:window.innerHeight,animationSectionHeight,windowWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:132',message:'updateVideoSource called - width changed',data:{isMobile,viewportHeight,windowInnerHeight:window.innerHeight,animationSectionHeight,windowWidth:currentWidth,lastKnownWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
   // #endregion
   
   const sources = video.querySelectorAll('source');
+  const currentSrc = video.src;
+  let newSrc = null;
   
   sources.forEach(source => {
     const media = source.getAttribute('media');
     if (media) {
       if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
-        // #region agent log
-        const oldSrc = video.src;
-        // #endregion
-        
-        video.src = source.src;
-        video.load();
-        
-        // #region agent log
-        fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:88',message:'Video source changed',data:{oldSrc,newSrc:source.src,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion
+        newSrc = source.src;
       }
     }
   });
+  
+  // Only reload if source actually changed
+  if (newSrc && newSrc !== currentSrc) {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:149',message:'Video source changed',data:{oldSrc:currentSrc,newSrc,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+    
+    video.src = newSrc;
+    video.load();
+  } else {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:155',message:'Video source unchanged - no reload',data:{currentSrc,newSrc,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+  }
 }
 
 window.addEventListener('resize', updateVideoSource);
