@@ -58,13 +58,13 @@ Goal: Make background colors feel like printed newspaper or a glossy magazine pa
 
 3. > **Scaleup CEOs. 3 hours. 0 Fluff.**
 On desktop keep this quote on a single line.
-For decades, the Israeli dream was the quick Exit. But something changed. A new generation of founders decided to go long. To build category-defining companies that last. We sit down with them for 3 hours. Unfiltered. No PR fluff. Just the raw, unscripted playbook of how to scale from Tel Aviv.
+For decades, the Israeli dream was the quick Exit. But something changed. A new generation of founders decided to go long. To build category defining companies that last. We sit down with them for 3 hours. Unfiltered. No PR fluff. Just the raw, unscripted playbook of how to scale from Tel Aviv.
 
 4. **Us.**: 
     **Erez Shachar** | *The Dean of Israeli ScaleUp*
 From CEO of a NASDAQ company to investing in them. Erez built Israel's first growth VC Fund, Qumra Capital, with one big dream: *What if Israel stopped being exit nation and actually became a scaleup nation?* Erez has seen *everything*. Two decades of boardrooms. Dozens of CEOs. Billions in value created. From early stage chaos to IPO bells on NASDAQ. He's here to make the discussion authentic. The kind of stuff that happens after the board meeting ends.
 **Ram Ben Ishay** | *The Young Challenger*
-28. Restless. From Spokesperson at the Israeli Consulate in NYC to VC in Silicon Valley. Crossed to the builder side, leading product teams in LA and Tel Aviv. Teaches at Reichman University.All of it chasing the same question: *How do you build something that actually lasts?*
+28. Restless. From Spokesperson at the Israeli Consulate in NYC to VC in Silicon Valley. Crossed to the builder side, leading product teams in LA and Tel Aviv. Teaches at Reichman University. All of it chasing the same question: *How do you build something that actually lasts?*
 
 5. **Episodes**
 **Layout**: Single row per episode. Images appear in greyscale and reveal full color on interaction (hover/click).
@@ -73,13 +73,13 @@ From CEO of a NASDAQ company to investing in them. Erez built Israel's first gro
 
 **Ep 1: ironSource CEO | Tomer Bar Zeev**
 *The Accidental Empire*
-He didn't plan to build an $11B company. He didn't even want to be CEO. Tomer reveals the unscripted journey of ironSource—from a browser extension side-hustle to one of Israel's biggest IPOs. 
+He didn't plan to build an $11B company. He didn't even want to be CEO. Tomer reveals the unscripted journey of ironSource from a browser extension side hustle to one of Israel's biggest IPOs. 
 Duration: 2h 31m · Views: 7.2K
 [Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=GzGORVRpjehiDwoB) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/sktqk00reel)
 
 **Ep 2: Tipalti CEO | Chen Amit**
 *The Art of Being Boringly Successful*
-Why solve a sexy problem when you can solve a painful one? Chen Amit took the most tedious part of business—payments—and built an $8B giant. He talks about the investor who almost killed the company and why "slow growth" was his secret weapon.
+Why solve a sexy problem when you can solve a painful one? Chen Amit took the most tedious part of business payments and built an $8B giant. He talks about the investor who almost killed the company and why "slow growth" was his secret weapon.
 Duration: 2h 31m · Views: 9.5K
 [Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=akhj1eMB0OBjnliG) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/rjd6611nhel)
 
@@ -91,13 +91,13 @@ Duration: 2h 47m · Views: 14.8K
 
 **Ep 4: AI21 Labs CEO | Ori Goshen**
 *David vs. Goliath. But with LLMs.*
-It sounds insane: A Tel Aviv startup going head-to-head with OpenAI and Google. Ori explains why they aren't blinking, the race for AGI, and why the next computing revolution will be defined by "reliable AI" for the enterprise.
+It sounds insane: A Tel Aviv startup going head to head with OpenAI and Google. Ori explains why they aren't blinking, the race for AGI, and why the next computing revolution will be defined by "reliable AI" for the enterprise.
 Duration: 2h 52m · Views: 17.3K
 [Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/c8FxAXfE6eI?si=czAH2aEvxF7jWZoG) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/h1chftz3ge)
 
 **Ep 5: Fiverr CEO | Micha Kaufman**
 *The $5 Revolution*
-It started as a gimmick. It became the future of work. Micha breaks down the late-night sessions that birthed the freelance economy, the battle to change how the world hires, and why he believes "company valuations are just voyeurism."
+It started as a gimmick. It became the future of work. Micha breaks down the late night sessions that birthed the freelance economy, the battle to change how the world hires, and why he believes "company valuations are just voyeurism."
 Duration: 2h 38m · Views: 46.3K
 [Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/zAUEubFfPpY?si=f6mvPQQ8lTBdTBqL) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/h1hxrbjkbx)
 

@@ -428,18 +428,12 @@ body::after {
   filter: grayscale(0%);
 }
 
-/* Make Calcalist icon bigger in hero section - same height as other icons but wider */
+/* Make Calcalist icon fit within button - same size as other icons */
 .cta-button[aria-label="Calcalist"] .cta-icon-img {
   height: 28px;
   width: auto;
-  max-width: 80px;
+  max-width: 28px;
   object-fit: contain;
-}
-
-.cta-button[aria-label="Calcalist"] {
-  width: auto;
-  min-width: 70px;
-  padding: 12px 16px;
 }
 
 /* Tagline Section */
