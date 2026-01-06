@@ -132,62 +132,78 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Video Source Selection based on screen size
+// Video Source Selection and Control
 let lastKnownWidth = window.innerWidth;
+let videoHasFinished = false;
+let videoInitialized = false;
 
-function updateVideoSource() {
+function initializeVideo() {
   const video = document.getElementById('heroVideo');
-  if (!video) return;
-  
-  const currentWidth = window.innerWidth;
-  // Only update if width actually changed (ignore height-only viewport changes)
-  if (currentWidth === lastKnownWidth) {
-    // #region agent log
-    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:123',message:'updateVideoSource skipped - width unchanged',data:{currentWidth,lastKnownWidth,viewportHeight:window.visualViewport?.height||window.innerHeight},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion
-    return;
-  }
-  
-  lastKnownWidth = currentWidth;
+  if (!video || videoInitialized) return;
   
   // #region agent log
-  const isMobile = currentWidth <= 767;
-  const viewportHeight = window.visualViewport?.height || window.innerHeight;
-  const animationSection = document.querySelector('.animation-section');
-  const animationSectionHeight = animationSection ? animationSection.offsetHeight : 0;
-  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:132',message:'updateVideoSource called - width changed',data:{isMobile,viewportHeight,windowInnerHeight:window.innerHeight,animationSectionHeight,windowWidth:currentWidth,lastKnownWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:135',message:'Initializing video',data:{videoSrc:video.src,isMobile:window.innerWidth<=767},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
   // #endregion
   
+  // Set initial source based on screen size
   const sources = video.querySelectorAll('source');
-  const currentSrc = video.src;
-  let newSrc = null;
+  const isMobile = window.innerWidth <= 767;
   
   sources.forEach(source => {
     const media = source.getAttribute('media');
     if (media) {
       if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
-        newSrc = source.src;
+        video.src = source.src;
       }
     }
   });
   
-  // Only reload if source actually changed
-  if (newSrc && newSrc !== currentSrc) {
+  // When video ends, pause and keep on last frame
+  video.addEventListener('ended', () => {
     // #region agent log
-    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:149',message:'Video source changed',data:{oldSrc:currentSrc,newSrc,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:152',message:'Video ended - pausing on last frame',data:{currentTime:video.currentTime,duration:video.duration},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
     // #endregion
-    
-    video.src = newSrc;
-    video.load();
-  } else {
+    videoHasFinished = true;
+    video.pause();
+    // Keep video on last frame by setting currentTime to duration
+    if (video.duration) {
+      video.currentTime = video.duration;
+    }
+  });
+  
+  // Prevent video from restarting - block any load() calls after video has finished
+  const originalLoad = video.load.bind(video);
+  video.load = function() {
+    if (videoHasFinished) {
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:163',message:'Video load() blocked - video has finished',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+      // #endregion
+      return; // Block reload if video has finished
+    }
     // #region agent log
-    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:155',message:'Video source unchanged - no reload',data:{currentSrc,newSrc,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'E'})}).catch(()=>{});
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:168',message:'Video load() allowed',data:{videoHasFinished},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
     // #endregion
-  }
+    originalLoad();
+  };
+  
+  // Prevent play() from restarting if video has finished
+  const originalPlay = video.play.bind(video);
+  video.play = function() {
+    if (videoHasFinished) {
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:176',message:'Video play() blocked - video has finished',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+      // #endregion
+      return Promise.resolve(); // Block play if video has finished
+    }
+    return originalPlay();
+  };
+  
+  videoInitialized = true;
 }
 
-window.addEventListener('resize', updateVideoSource);
-window.addEventListener('load', updateVideoSource);
+// Initialize video on load
+window.addEventListener('load', initializeVideo);
+document.addEventListener('DOMContentLoaded', initializeVideo);
 
 // #region agent log
 let lastViewportHeight = window.visualViewport?.height || window.innerHeight;
