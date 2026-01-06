@@ -67,15 +67,15 @@ function updateScrollProgress() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
-    const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+  const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
     
     // #region agent log
     const beforeWidth = scrollProgress ? scrollProgress.style.width : 'none';
     // #endregion
-    
-    if (scrollProgress) {
-      scrollProgress.style.width = `${Math.min(scrollPercentage, 100)}%`;
-    }
+  
+  if (scrollProgress) {
+    scrollProgress.style.width = `${Math.min(scrollPercentage, 100)}%`;
+  }
     
     // #region agent log
     const afterWidth = scrollProgress ? scrollProgress.style.width : 'none';
@@ -146,16 +146,36 @@ function initializeVideo() {
   if (!video || videoInitialized) return;
   
   // #region agent log
-  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:135',message:'Initializing video',data:{videoSrc:video.src,isMobile:window.innerWidth<=767},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:135',message:'Initializing video',data:{videoSrc:video.src,isMobile:window.innerWidth<=767},timestamp:Date.now(),sessionId:'debug-session',runId:'run8',hypothesisId:'F'})}).catch(()=>{});
   // #endregion
   
-  // Ensure video plays on load
+  // Select the right source based on screen size (media attr not well supported)
+  const sources = video.querySelectorAll('source');
+  const isMobile = window.innerWidth <= 767;
+  
+  sources.forEach(source => {
+    const media = source.getAttribute('media');
+    if (media) {
+      if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
+        // #region agent log
+        fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:149',message:'Setting video source',data:{src:source.src,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'run8',hypothesisId:'F'})}).catch(()=>{});
+        // #endregion
+        video.src = source.src;
+      }
+    }
+  });
+  
+  // Load and play the video
+  video.load();
   const playPromise = video.play();
   if (playPromise !== undefined) {
     playPromise.catch(error => {
       // #region agent log
-      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:155',message:'Autoplay prevented',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run7',hypothesisId:'F'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:165',message:'Autoplay prevented',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run8',hypothesisId:'F'})}).catch(()=>{});
       // #endregion
+      // Ensure muted and retry
+      video.muted = true;
+      video.play().catch(() => {});
     });
   }
   

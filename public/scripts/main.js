@@ -40,7 +40,7 @@ function updateScrollProgress() {
   }
 }
 
-window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress);
 
 // Scroll Animations
@@ -72,23 +72,61 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Video control: play on load once and stop at last frame
+// Video control: select source on load, play once and stop at last frame
 window.addEventListener('load', () => {
   const video = document.getElementById('heroVideo');
   if (!video) return;
-  // Ensure single play on load and never restart on resize or scroll
-  video.addEventListener('ended', () => {
-    video.pause();
-    if (video.duration) {
-      try { video.currentTime = video.duration; } catch {}
+  
+  let videoHasEnded = false;
+
+  // Select the right source based on screen size (media attr not well supported)
+  const sources = video.querySelectorAll('source');
+  const isMobile = window.innerWidth <= 767;
+  
+  sources.forEach(source => {
+    const media = source.getAttribute('media');
+    if (media) {
+      if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
+        video.src = source.src;
+      }
     }
   });
-  // Guard against any accidental reloads
+
+  // Handle video end
+  video.addEventListener('ended', () => {
+    videoHasEnded = true;
+    video.pause();
+    // Keep at end
+    if (video.duration && !isNaN(video.duration)) {
+        try { video.currentTime = video.duration; } catch (e) {}
+    }
+  });
+
+  // Prevent restarting by hijacking play
+  const originalPlay = video.play.bind(video);
+  video.play = function() {
+    if (videoHasEnded) {
+      return Promise.resolve();
+    }
+    return originalPlay();
+  };
+
+  // Only block load if video has ended
   const originalLoad = video.load.bind(video);
   video.load = function() {
-    // Block reloads to avoid restarts
-    return;
+    if (videoHasEnded) {
+      return;
+    }
+    originalLoad();
   };
+  
+  // Load and play the video
+  video.load();
+  video.play().catch(() => {
+    // Autoplay might be blocked, ensure muted and retry
+    video.muted = true;
+    video.play().catch(() => {});
+  });
 });
 
 // Smooth scroll for anchor links
@@ -107,4 +145,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
-
