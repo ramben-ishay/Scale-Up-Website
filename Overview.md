@@ -66,7 +66,7 @@ For decades, the Israeli dream was the quick Exit. But something changed. A new 
     **Erez Shachar** | *The Dean of Israeli ScaleUp*
 From CEO of a NASDAQ company to investing in them. Erez built Israel's first growth VC Fund, Qumra Capital, with one big dream: *What if Israel stopped being exit nation and actually became a scaleup nation?* Erez has seen *everything*. Two decades of boardrooms. Dozens of CEOs. Billions in value created. From early stage chaos to IPO bells on NASDAQ. He's here to make the discussion authentic. The kind of stuff that happens after the board meeting ends.
 **Ram Ben Ishay** | *The Young Challenger*
-28 years old and already been everywhere. Spokesperson at the Israeli Consulate in NYC. Researcher at UC Berkeley. VC in Silicon Valley. Then crossed to the builder side, leading product teams in LA and Tel Aviv, from tech giants to early stage startups. Now teaches Product Management at Reichman, writes op-eds for TheMarker & Globes, and leads product at one of Israel's most funded startups. And yes, he's your host.
+28. Restless. From Spokesperson at the Israeli Consulate in NYC to VC in Silicon Valley. Then crossed to the builder side, leading product teams in LA and Tel Aviv. Teaches Product Management at Reichman University and chasing the same question from different angles: *How do you build something that actually lasts?*
 
 5. **Episodes**
 **Layout**: Single row per episode. Images appear in greyscale and reveal full color on interaction (hover/click).

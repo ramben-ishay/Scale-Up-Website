@@ -582,6 +582,7 @@ body::after {
   line-height: 1.8;
   color: var(--color-navy);
   margin: 0;
+  text-align: left;
 }
 
 .person-bio em {
