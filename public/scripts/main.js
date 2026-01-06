@@ -72,27 +72,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Video Source Selection based on screen size
-function updateVideoSource() {
+// Video control: play on load once and stop at last frame
+window.addEventListener('load', () => {
   const video = document.getElementById('heroVideo');
   if (!video) return;
-  
-  const sources = video.querySelectorAll('source');
-  const isMobile = window.innerWidth <= 767;
-  
-  sources.forEach(source => {
-    const media = source.getAttribute('media');
-    if (media) {
-      if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
-        video.src = source.src;
-        video.load();
-      }
+  // Ensure single play on load and never restart on resize or scroll
+  video.addEventListener('ended', () => {
+    video.pause();
+    if (video.duration) {
+      try { video.currentTime = video.duration; } catch {}
     }
   });
-}
-
-window.addEventListener('resize', updateVideoSource);
-window.addEventListener('load', updateVideoSource);
+  // Guard against any accidental reloads
+  const originalLoad = video.load.bind(video);
+  video.load = function() {
+    // Block reloads to avoid restarts
+    return;
+  };
+});
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
