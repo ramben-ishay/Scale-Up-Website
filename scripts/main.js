@@ -87,6 +87,23 @@ function updateScrollProgress() {
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 window.addEventListener('resize', updateScrollProgress);
 
+// Monitor video state during scroll
+window.addEventListener('scroll', () => {
+  const video = document.getElementById('heroVideo');
+  if (video && videoHasFinished) {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:88',message:'Scroll event - checking video state',data:{currentTime:video.currentTime,duration:video.duration,paused:video.paused,scrollTop:window.pageYOffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
+    // Ensure video stays paused at end during scroll
+    if (!video.paused || (video.currentTime < video.duration - 0.5)) {
+      video.pause();
+      if (video.duration) {
+        video.currentTime = video.duration;
+      }
+    }
+  }
+}, { passive: true });
+
 // Scroll Animations
 const observerOptions = {
   threshold: 0.1,
@@ -158,18 +175,79 @@ function initializeVideo() {
     }
   });
   
+  // Track all video state changes
+  let lastCurrentTime = 0;
+  let lastPlaybackState = video.paused ? 'paused' : 'playing';
+  
+  video.addEventListener('play', () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:162',message:'Video play event',data:{currentTime:video.currentTime,duration:video.duration,videoHasFinished,scrollTop:window.pageYOffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
+    lastPlaybackState = 'playing';
+    if (videoHasFinished && video.currentTime < video.duration - 0.5) {
+      // Video restarted after finishing - force back to end
+      video.pause();
+      video.currentTime = video.duration;
+    }
+  });
+  
+  video.addEventListener('pause', () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:171',message:'Video pause event',data:{currentTime:video.currentTime,duration:video.duration,videoHasFinished},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
+    lastPlaybackState = 'paused';
+  });
+  
+  video.addEventListener('seeked', () => {
+    // #region agent log
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:177',message:'Video seeked event',data:{currentTime:video.currentTime,duration:video.duration,videoHasFinished},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
+  });
+  
+  video.addEventListener('timeupdate', () => {
+    // Detect if video restarted (currentTime went backwards significantly)
+    if (lastCurrentTime > 1 && video.currentTime < 0.5 && videoHasFinished) {
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:184',message:'Video RESTART DETECTED - currentTime reset',data:{lastCurrentTime,currentTime:video.currentTime,duration:video.duration,scrollTop:window.pageYOffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+      // #endregion
+      // Force back to end
+      video.pause();
+      video.currentTime = video.duration;
+    }
+    lastCurrentTime = video.currentTime;
+  });
+  
   // When video ends, pause and keep on last frame
   video.addEventListener('ended', () => {
     // #region agent log
-    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:152',message:'Video ended - pausing on last frame',data:{currentTime:video.currentTime,duration:video.duration},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:195',message:'Video ended - pausing on last frame',data:{currentTime:video.currentTime,duration:video.duration},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
     // #endregion
     videoHasFinished = true;
     video.pause();
     // Keep video on last frame by setting currentTime to duration
     if (video.duration) {
       video.currentTime = video.duration;
+      lastCurrentTime = video.duration;
     }
   });
+  
+  // Monitor visibility changes that might cause browser to restart video
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:208',message:'Video visibility changed',data:{isIntersecting:entry.isIntersecting,intersectionRatio:entry.intersectionRatio,currentTime:video.currentTime,videoHasFinished,scrollTop:window.pageYOffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'G'})}).catch(()=>{});
+      // #endregion
+      if (videoHasFinished && entry.isIntersecting) {
+        // Video came back into view after finishing - ensure it stays at end
+        video.pause();
+        if (video.duration) {
+          video.currentTime = video.duration;
+        }
+      }
+    });
+  }, { threshold: [0, 0.1, 0.5, 1] });
+  
+  visibilityObserver.observe(video);
   
   // Prevent video from restarting - block any load() calls after video has finished
   const originalLoad = video.load.bind(video);
@@ -189,14 +267,40 @@ function initializeVideo() {
   // Prevent play() from restarting if video has finished
   const originalPlay = video.play.bind(video);
   video.play = function() {
+    // #region agent log
+    const stackTrace = new Error().stack;
+    fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:240',message:'Video play() called',data:{videoHasFinished,currentTime:video.currentTime,scrollTop:window.pageYOffset,stackTrace:stackTrace?.split('\n').slice(0,5).join('|')},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
     if (videoHasFinished) {
       // #region agent log
-      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:176',message:'Video play() blocked - video has finished',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:244',message:'Video play() blocked - video has finished',data:{currentTime:video.currentTime},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
       // #endregion
       return Promise.resolve(); // Block play if video has finished
     }
     return originalPlay();
   };
+  
+  // Override currentTime setter to prevent going back to start
+  let currentTimeDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'currentTime');
+  if (currentTimeDescriptor && currentTimeDescriptor.set) {
+    const originalSetCurrentTime = currentTimeDescriptor.set;
+    Object.defineProperty(video, 'currentTime', {
+      set: function(value) {
+        // #region agent log
+        if (videoHasFinished && value < video.duration - 0.5) {
+          fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:255',message:'currentTime setter called - blocking reset',data:{attemptedValue:value,currentValue:this.currentTime,duration:this.duration,scrollTop:window.pageYOffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'F'})}).catch(()=>{});
+          // #endregion
+          // Block setting currentTime to start if video has finished
+          if (this.duration) {
+            originalSetCurrentTime.call(this, this.duration);
+            return;
+          }
+        }
+        originalSetCurrentTime.call(this, value);
+      },
+      get: currentTimeDescriptor.get
+    });
+  }
   
   videoInitialized = true;
 }
