@@ -212,6 +212,7 @@ body::after {
   .nav-capsule {
     width: calc(100% - 40px);
     padding: 0 20px;
+    top: 10px;
   }
 
   .mobile-menu-toggle {
@@ -324,6 +325,95 @@ body::after {
   color: white;
 }
 
+/* Brand colors for icons on hover/click - must override default hover */
+.cta-button[aria-label="Spotify"]:hover,
+.cta-button[aria-label="Spotify"]:active {
+  background: #1DB954 !important;
+  border-color: #1DB954;
+}
+
+.cta-button[aria-label="Spotify"]:hover svg,
+.cta-button[aria-label="Spotify"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="Apple Podcasts"]:hover,
+.cta-button[aria-label="Apple Podcasts"]:active {
+  background: #843BC3 !important;
+  border-color: #843BC3;
+}
+
+.cta-button[aria-label="Apple Podcasts"]:hover svg,
+.cta-button[aria-label="Apple Podcasts"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="YouTube"]:hover,
+.cta-button[aria-label="YouTube"]:active {
+  background: #FF0000 !important;
+  border-color: #FF0000;
+}
+
+.cta-button[aria-label="YouTube"]:hover svg,
+.cta-button[aria-label="YouTube"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="Instagram"]:hover,
+.cta-button[aria-label="Instagram"]:active {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  border-color: transparent;
+}
+
+.cta-button[aria-label="Instagram"]:hover svg,
+.cta-button[aria-label="Instagram"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="X (Twitter)"]:hover,
+.cta-button[aria-label="X (Twitter)"]:active {
+  background: #000000 !important;
+  border-color: #000000;
+}
+
+.cta-button[aria-label="X (Twitter)"]:hover svg,
+.cta-button[aria-label="X (Twitter)"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="LinkedIn"]:hover,
+.cta-button[aria-label="LinkedIn"]:active {
+  background: #0077B5 !important;
+  border-color: #0077B5;
+}
+
+.cta-button[aria-label="LinkedIn"]:hover svg,
+.cta-button[aria-label="LinkedIn"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="Facebook"]:hover,
+.cta-button[aria-label="Facebook"]:active {
+  background: #1877F2 !important;
+  border-color: #1877F2;
+}
+
+.cta-button[aria-label="Facebook"]:hover svg,
+.cta-button[aria-label="Facebook"]:active svg {
+  color: white !important;
+}
+
+.cta-button[aria-label="WhatsApp"]:hover,
+.cta-button[aria-label="WhatsApp"]:active {
+  background: #25D366 !important;
+  border-color: #25D366;
+}
+
+.cta-button[aria-label="WhatsApp"]:hover svg,
+.cta-button[aria-label="WhatsApp"]:active svg {
+  color: white !important;
+}
+
 .cta-icon-img {
   width: 28px;
   height: 28px;
@@ -336,6 +426,20 @@ body::after {
 .cta-button:hover .cta-icon-img {
   opacity: 1;
   filter: grayscale(0%);
+}
+
+/* Make Calcalist icon bigger in hero section - same height as other icons but wider */
+.cta-button[aria-label="Calcalist"] .cta-icon-img {
+  height: 28px;
+  width: auto;
+  max-width: 80px;
+  object-fit: contain;
+}
+
+.cta-button[aria-label="Calcalist"] {
+  width: auto;
+  min-width: 70px;
+  padding: 12px 16px;
 }
 
 /* Tagline Section */
@@ -406,8 +510,49 @@ body::after {
 
 .person-card {
   padding: 30px;
-  background: linear-gradient(135deg, rgba(6, 25, 54, 0.12) 0%, rgba(253, 243, 230, 0.65) 50%, rgba(6, 25, 54, 0.10) 100%);
+  background: linear-gradient(135deg, rgba(190, 51, 48, 0.15) 0%, rgba(253, 243, 230, 0.65) 50%, rgba(190, 51, 48, 0.12) 100%);
   border-radius: 8px;
+}
+
+.person-card.has-image {
+  display: flex;
+  flex-direction: column; /* Stack vertically on desktop too */
+  align-items: flex-start; /* Align left */
+  gap: 10px;
+}
+
+.person-image-container {
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  position: relative;
+  display: flex;
+  align-items: flex-end; /* Align image to bottom of container so head doesn't float too high */
+  justify-content: center;
+  margin-right: 0;
+  margin-bottom: -20px; /* Pull text closer to image */
+  margin-top: 0;
+  margin-left: -10px; /* Slight optical adjustment to align center of torso with left text edge */
+}
+
+.person-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+  filter: none;
+  opacity: 1;
+  transition: transform 0.4s ease;
+  /* Removed mask to show full image clearly near name */
+}
+
+.person-image:hover {
+  transform: scale(1.02);
+}
+
+.person-content {
+  flex: 1;
 }
 
 .person-name {
@@ -437,6 +582,40 @@ body::after {
 .person-bio em {
   font-style: italic;
   color: var(--color-red);
+}
+
+/* Animations */
+.floating-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@media (max-width: 768px) {
+  .person-card.has-image {
+    align-items: center;
+    text-align: center;
+    padding-bottom: 30px;
+    overflow: visible;
+  }
+  
+  .person-image-container {
+    width: 200px;
+    height: 200px;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-top: 0;
+    align-items: center;
+  }
+  
+  .person-content {
+    margin-bottom: 0;
+  }
 }
 
 /* Episodes Section */
@@ -555,7 +734,10 @@ body::after {
 }
 
 .episode-links {
-  display: none !important;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .episode-link {
@@ -565,6 +747,15 @@ body::after {
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
   color: #999;
+  width: 32px;
+  height: 32px;
+}
+
+/* Make Calcalist link container wider to accommodate bigger icon */
+.episode-link[aria-label="Calcalist"] {
+  width: auto;
+  min-width: 70px;
+  padding: 0 4px;
 }
 
 .episode-link:hover {
@@ -576,6 +767,29 @@ body::after {
   width: 24px;
   height: 24px;
   display: block;
+  transition: color 0.3s ease;
+}
+
+.episode-link:hover svg {
+  color: var(--color-navy);
+}
+
+/* Brand colors for episode link icons on hover/click */
+.episode-link[aria-label="Spotify"]:hover svg,
+.episode-link[aria-label="Spotify"]:active svg {
+  color: #1DB954;
+}
+
+.episode-link[aria-label="Apple Podcast"]:hover svg,
+.episode-link[aria-label="Apple Podcast"]:active svg,
+.episode-link[aria-label="Apple Podcasts"]:hover svg,
+.episode-link[aria-label="Apple Podcasts"]:active svg {
+  color: #843BC3;
+}
+
+.episode-link[aria-label="YouTube"]:hover svg,
+.episode-link[aria-label="YouTube"]:active svg {
+  color: #FF0000;
 }
 
 .episode-link-img {
@@ -604,6 +818,14 @@ body::after {
 .episode-link:hover .episode-icon-img {
   opacity: 1;
   filter: grayscale(0%);
+}
+
+/* Make Calcalist icon bigger and wider - same height as other icons but wider */
+.episode-link[aria-label="Calcalist"] .episode-icon-img {
+  height: 24px;
+  width: auto;
+  max-width: 70px;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
@@ -661,7 +883,7 @@ body::after {
   }
 
   .nav-capsule {
-    top: 10px;
+    top: 5px;
     width: calc(100% - 20px);
   }
 }
