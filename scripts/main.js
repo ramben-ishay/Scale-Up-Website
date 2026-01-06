@@ -149,35 +149,14 @@ function initializeVideo() {
   fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:135',message:'Initializing video',data:{videoSrc:video.src,isMobile:window.innerWidth<=767},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
   // #endregion
   
-  // Set initial source based on screen size - only once
-  const sources = video.querySelectorAll('source');
-  const isMobile = window.innerWidth <= 767;
-
-  let sourceSet = false;
-  sources.forEach(source => {
-    const media = source.getAttribute('media');
-    if (media) {
-      if ((isMobile && media.includes('max-width')) || (!isMobile && media.includes('min-width'))) {
-        // #region agent log
-        fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:149',message:'Setting initial video source',data:{oldSrc:video.src,newSrc:source.src,isMobile},timestamp:Date.now(),sessionId:'debug-session',runId:'run6',hypothesisId:'F'})}).catch(()=>{});
-        // #endregion
-        video.src = source.src;
-        sourceSet = true;
-      }
-    }
-  });
-
-  // Ensure video loads and plays if source was set
-  if (sourceSet) {
-    video.load();
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        // #region agent log
-        fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:165',message:'Autoplay prevented',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run6',hypothesisId:'F'})}).catch(()=>{});
-        // #endregion
-      });
-    }
+  // Ensure video plays on load
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      // #region agent log
+      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:155',message:'Autoplay prevented',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run7',hypothesisId:'F'})}).catch(()=>{});
+      // #endregion
+    });
   }
   
   // Track all video state changes
