@@ -54,7 +54,7 @@ Goal: Make background colors feel like printed newspaper or a glossy magazine pa
    Short Video / Animation of the podcast. One vertical for desktop and one vertical for Mobile. The animation should be positioned below the nav bar and above all other content on the homepage. Full screen height section.
 
 2. **Hero**:
-   * CTAs: Apple Podcasts, Spotify, Instagram, YouTube, X, LinkedIn, Facebook, WhatsApp
+   * CTAs: Apple Podcasts (https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832), Spotify (https://open.spotify.com/show/5fRuhz6HzOeYORdCGjTdrs?si=zzFP8vrnTLKpS_i9FE6k_w), Instagram (https://www.instagram.com/scaleupnationpod/), YouTube (https://www.youtube.com/@ScaleUpNationPod), LinkedIn (https://www.linkedin.com/company/scale-up-nation-podcast/?viewAsMember=true), Facebook (https://www.facebook.com/ScaleUpNatio), WhatsApp (https://chat.whatsapp.com/DrEzkHtfl0T8LLsA1h527N), Calcalist (https://www.calcalist.co.il/category/41942)
 
 3. > **Scaleup CEOs. 3 hours. 0 Fluff.**
 On desktop keep this quote on a single line.
@@ -75,31 +75,31 @@ From CEO of a NASDAQ company to investing in them. Erez built Israel's first gro
 *The Accidental Empire*
 He didn't plan to build an $11B company. He didn't even want to be CEO. Tomer reveals the unscripted journey of ironSource from a browser extension side hustle to one of Israel's biggest IPOs. 
 Duration: 2h 31m · Views: 7.2K
-[Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=GzGORVRpjehiDwoB) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/sktqk00reel)
+[Spotify Logo](https://open.spotify.com/episode/6zmEOeGMdCXOgfBpdw696N?si=coMoH6HnSNKSxcYx72z7rQ&pi=Dv71THG0TxGib&t=0) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=GzGORVRpjehiDwoB) · [Apple Podcast Logo](https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832?i=1000715298435) · [Calcalist Logo](https://www.calcalist.co.il/article/sktqk00reel)
 
 **Ep 2: Tipalti CEO | Chen Amit**
 *The Art of Being Boringly Successful*
 Why solve a sexy problem when you can solve a painful one? Chen Amit took the most tedious part of business payments and built an $8B giant. He talks about the investor who almost killed the company and why "slow growth" was his secret weapon.
 Duration: 2h 31m · Views: 9.5K
-[Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=akhj1eMB0OBjnliG) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/rjd6611nhel)
+[Spotify Logo](https://open.spotify.com/episode/00fFW6h0HnVxeFppNX4jp4?si=45whLwS-S1-Xm5yOyVxgJg&t=2&pi=PVEDBohOS_GGt) · [YouTube Logo](https://youtu.be/4Zr94O-CJKU?si=akhj1eMB0OBjnliG) · [Apple Podcast Logo](https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832?i=1000717630470) · [Calcalist Logo](https://www.calcalist.co.il/article/rjd6611nhel)
 
 **Ep 3: AppsFlyer CEO | Oren Kaniel**
 *70% Market Share. Winning the Long Game.*
 How do you dominate the global market without selling your soul? Oren built the "Switzerland of mobile attribution" by saying no to quick money and yes to obsessing over customers. The bootstrapped mentality that never left, even at half a billion in revenue.
 Duration: 2h 47m · Views: 14.8K
-[Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/Joxqrz8t7Y8?si=ENJjMIvspUOPwlcL) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/ryhclueyxl)
+[Spotify Logo](https://open.spotify.com/episode/5Oh6FrkH3dafTloGmomzZE?si=5_JEhSZjSoSTgiQcdeT-VA&t=2&pi=4-RhDSiCT7GKU) · [YouTube Logo](https://youtu.be/Joxqrz8t7Y8?si=ENJjMIvspUOPwlcL) · [Apple Podcast Logo](https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832?i=1000722481256) · [Calcalist Logo](https://www.calcalist.co.il/article/ryhclueyxl)
 
 **Ep 4: AI21 Labs CEO | Ori Goshen**
 *David vs. Goliath. But with LLMs.*
 It sounds insane: A Tel Aviv startup going head to head with OpenAI and Google. Ori explains why they aren't blinking, the race for AGI, and why the next computing revolution will be defined by "reliable AI" for the enterprise.
 Duration: 2h 52m · Views: 17.3K
-[Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/c8FxAXfE6eI?si=czAH2aEvxF7jWZoG) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/h1chftz3ge)
+[Spotify Logo](https://open.spotify.com/episode/085MzPZHY5rGWBN1BWhgfW?si=xuAP1hbdRwCizNcjc1QwCA&pi=0lDkR-m1Rl-kt&t=2) · [YouTube Logo](https://youtu.be/c8FxAXfE6eI?si=czAH2aEvxF7jWZoG) · [Apple Podcast Logo](https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832?i=1000729057013) · [Calcalist Logo](https://www.calcalist.co.il/article/h1chftz3ge)
 
 **Ep 5: Fiverr CEO | Micha Kaufman**
 *The $5 Revolution*
 It started as a gimmick. It became the future of work. Micha breaks down the late night sessions that birthed the freelance economy, the battle to change how the world hires, and why he believes "company valuations are just voyeurism."
 Duration: 2h 38m · Views: 46.3K
-[Spotify Logo](INSERT_LINK_HERE) · [YouTube Logo](https://youtu.be/zAUEubFfPpY?si=f6mvPQQ8lTBdTBqL) · [Apple Podcast Logo](INSERT_LINK_HERE) · [Calcalist Logo](https://www.calcalist.co.il/article/h1hxrbjkbx)
+[Spotify Logo](https://open.spotify.com/episode/2TrufD6w5fwFTYD3l7nZOb?si=S5h45r_4T22cb3SLB4nTgg&pi=H_sZAREyR2Oak&t=2) · [YouTube Logo](https://youtu.be/zAUEubFfPpY?si=f6mvPQQ8lTBdTBqL) · [Apple Podcast Logo](https://podcasts.apple.com/il/podcast/scaleup-nation/id1823515832?i=1000734163644) · [Calcalist Logo](https://www.calcalist.co.il/article/h1hxrbjkbx)
 
 **Ep 6: Riskified CEO | Eido Gal**
 *The Dropout Who Guaranteed Success*
