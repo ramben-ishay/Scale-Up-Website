@@ -584,6 +584,30 @@ body::after {
   color: var(--color-red);
 }
 
+.person-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  width: 32px;
+  height: 32px;
+}
+
+.person-linkedin-link:hover {
+  color: #0077B5;
+  transform: translateY(-2px);
+}
+
+.person-linkedin-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  transition: color 0.3s ease;
+}
+
 /* Animations */
 .floating-animation {
   animation: float 6s ease-in-out infinite;
