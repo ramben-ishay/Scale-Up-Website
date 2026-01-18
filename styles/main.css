@@ -475,6 +475,15 @@ body::after {
   text-align: left;
 }
 
+.why-emphasis {
+  font-family: var(--font-headline);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: var(--color-red);
+  display: inline-block;
+  margin: 10px 0;
+}
+
 @media (min-width: 768px) {
   .quote {
     white-space: nowrap;
