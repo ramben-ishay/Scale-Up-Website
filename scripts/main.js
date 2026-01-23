@@ -122,10 +122,28 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
+// Episode image: colorize when in viewport center (mobile scroll-to-reveal)
+const episodeImageCenterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const card = entry.target.closest('.episode-card');
+    if (!card) return;
+    if (entry.isIntersecting) {
+      card.classList.add('in-viewport-center');
+    } else {
+      card.classList.remove('in-viewport-center');
+    }
+  });
+}, {
+  root: null,
+  rootMargin: '-15% 0px -15% 0px',
+  threshold: 0
+});
+
 // Observe all sections and episode cards
 document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section');
   const episodeCards = document.querySelectorAll('.episode-card');
+  const episodeImageWrappers = document.querySelectorAll('.episode-image-wrapper');
   
   sections.forEach(section => {
     observer.observe(section);
@@ -133,6 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
   episodeCards.forEach(card => {
     observer.observe(card);
+  });
+
+  episodeImageWrappers.forEach(wrapper => {
+    episodeImageCenterObserver.observe(wrapper);
   });
 });
 
