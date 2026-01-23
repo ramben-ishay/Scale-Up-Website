@@ -122,7 +122,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Episode image: colorize when in viewport center (mobile scroll-to-reveal)
+// Episode image: colorize when scrolled into view (mobile; viewport-center was too strict)
 const episodeImageCenterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const card = entry.target.closest('.episode-card');
@@ -135,8 +135,8 @@ const episodeImageCenterObserver = new IntersectionObserver((entries) => {
   });
 }, {
   root: null,
-  rootMargin: '-15% 0px -15% 0px',
-  threshold: 0
+  rootMargin: '0px',
+  threshold: 0.2
 });
 
 // Observe all sections and episode cards
@@ -187,19 +187,13 @@ function initializeVideo() {
     }
   });
   
-  // Load and play the video
+  // Load and play (mobile: play when ready via canplay; muted is required for autoplay)
+  video.muted = true;
+  video.setAttribute('playsinline', '');
   video.load();
-  const playPromise = video.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(error => {
-      // #region agent log
-      fetch('http://127.0.0.1:7245/ingest/131454f0-416f-439f-8cfa-057f899be75b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:165',message:'Autoplay prevented',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run8',hypothesisId:'F'})}).catch(()=>{});
-      // #endregion
-      // Ensure muted and retry
-      video.muted = true;
-      video.play().catch(() => {});
-    });
-  }
+  const tryPlay = () => { video.play().catch(() => {}); };
+  video.addEventListener('canplay', tryPlay, { once: true });
+  tryPlay();
   
   // Track all video state changes
   let lastCurrentTime = 0;

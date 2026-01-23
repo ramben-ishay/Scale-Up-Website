@@ -663,6 +663,7 @@ body::after {
     overflow: visible;
     max-width: 100%;
     box-sizing: border-box;
+    min-height: min-content;
   }
   
   .person-image-container {
@@ -680,7 +681,8 @@ body::after {
     text-align: center;
     max-width: 100%;
     box-sizing: border-box;
-    min-height: 0;
+    min-height: min-content;
+    flex-shrink: 0;
   }
   
   .person-bio {
@@ -691,6 +693,7 @@ body::after {
   
   .person-linkedin-link {
     margin-top: 24px;
+    margin-bottom: 8px;
     flex-shrink: 0;
   }
 }
