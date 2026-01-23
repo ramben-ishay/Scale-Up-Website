@@ -529,7 +529,7 @@ body::after {
   min-height: 0;
   box-sizing: border-box;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .person-card.has-image {
@@ -627,6 +627,7 @@ body::after {
   transition: color 0.3s ease, transform 0.3s ease;
   width: 32px;
   height: 32px;
+  flex-shrink: 0;
 }
 
 .person-linkedin-link:hover {
@@ -659,7 +660,7 @@ body::after {
     align-items: center;
     text-align: center;
     padding-bottom: 30px;
-    overflow: hidden;
+    overflow: visible;
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -679,12 +680,18 @@ body::after {
     text-align: center;
     max-width: 100%;
     box-sizing: border-box;
+    min-height: 0;
   }
   
   .person-bio {
     max-width: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
+  }
+  
+  .person-linkedin-link {
+    margin-top: 24px;
+    flex-shrink: 0;
   }
 }
 
