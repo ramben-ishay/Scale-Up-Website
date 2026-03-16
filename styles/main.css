@@ -713,6 +713,7 @@ body::after {
 
 .episode-card {
   display: flex;
+  align-items: center;
   gap: 40px;
   padding: 30px;
   background: white;
